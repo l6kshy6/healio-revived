@@ -1,0 +1,96 @@
+.chat{
+    width:fit-content;
+    display:block;
+    position:relative;
+    margin:auto;
+    padding-top: 35vh;
+}
+.output{
+    position: relative;
+    display:block;
+    width:fit-content;
+    margin:auto;
+    font-family: "Red Hat Text", sans-serif;
+    font-size: 30px;
+}
+
+.inputContainer{
+    background-color: #CDDEE2;
+    width: fit-content;
+    border-radius: 25px;
+    padding-left:10px;
+    padding-right:10px;
+}
+#welcome{
+    font-size: 50px;
+    text-decoration: none;
+    color:#151617;
+    font-family: "Readex Pro", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    position: relative;
+    text-align: center;
+    margin:0;
+}
+#glass{
+    position: relative;
+    float:left;
+    display:block;
+    padding-right:10px;
+}
+.messageQuestion{
+    position: relative;
+    object-fit: cover;
+    vertical-align:top;
+    left:100%;
+    user-select: none;
+    cursor: pointer;
+}
+#questionNotice{
+    left:0%;
+    padding:5px;
+    position: relative;
+    bottom:7.5px;
+    cursor:default;
+}
+#legalNotice{
+    position:absolute;
+    display: block;
+    bottom: 0px;
+    left:0px;
+    font-family: "Readex Pro", sans-serif;
+    font-size:15px;
+}
+#legalNotice h6{
+    float:right;
+    margin:0px;
+}
+#textInput, #ghost{
+    background:none;
+    align-content: center;
+    font-size:35px;
+    min-width: 450px;
+    max-width:850px;
+    border:none;
+    font-family: "Red Hat Text", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display:inline-block;
+}
+#textInput{
+    resize:none;
+    min-height:54px;
+    max-height:200px;
+    vertical-align: -25%;
+    scrollbar-width: thin;
+    scrollbar-gutter: auto;
+    outline:none
+}
+#ghost{
+    visibility:hidden;
+    min-width:0px;
+    max-height:200px;
+    overflow-wrap: break-word;
+    position:fixed;
+    left:35%;
+}
