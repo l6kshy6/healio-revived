@@ -2,6 +2,9 @@ import "./Home.css";
 import {useState, useEffect, useRef} from "react";
 import glass from "../../assets/glass.svg";
 import messageQuestion from "../../assets/message_question.svg";
+import "react-markdown";
+import Markdown from "react-markdown";
+import OpenAI from "openai";
 
 function Home(props){
     const inputRef = useRef(null);
@@ -11,6 +14,7 @@ function Home(props){
     const[testOutput,setTestOutput] = useState("");
     const[blank,setBlank] = useState("");
     const[clicked,setClicked] = useState(false);
+    const [errortext,setErrorText] = useState("");
 
     const resize = e=>{
         setBlank(e.target.value);
@@ -28,7 +32,35 @@ function Home(props){
         }
     };
 
+    // const fetchPriceData = ndc =>{
+    //     fetch("https://data.medicaid.gov/api/1/datastore/query/99315a95-37ac-4eee-946a-3c523b4c481e/0",{
+    //         method:"POST",
+    //         body: JSON.stringify({
+    //             "conditions": [
+    //               {
+    //                 "resource": "t",
+    //                 "property": "ndc",
+    //                 "value": 24385005452,
+    //                 "operator": "="
+    //               },
+    //               {
+    //                 "resource": "t",
+    //                 "property": "OTC",
+    //                 "value": "Y",
+    //                 "operator": "="
+    //               }
+    //             ],
+    //             "limit": 3
+    //           })
+    //     }).then(e => e.json())
+    //     .then(json=> {
+    //         console.log(json.results[0].nadac_per_unit);
+    //     });
+    // }
+    // console.log(import.meta.env.VITE_OPENAI_KEY);
+
     const getData = (e)=>{
+        // Fetches response from GEMINI first
         fetch("http://localhost:5000/test", {
                 method:"POST",
                 body:e.target.value
@@ -36,9 +68,26 @@ function Home(props){
                 .then(e => e.text())
                     .then(text=> {
                         console.log(text);
+                        if(text=="illegible_response")
+                            setErrorText("Please enter a valid response.");
+                        else {    
                         setTestOutput(text);
                         moveChatToTop();
+                        }
                     });
+    }
+    
+    async function createThread(){
+        const openai = new OpenAI({apiKey:import.meta.env.VITE_OPENAI_KEY});
+        console.log("creating thread");
+        const thread = await openai.beta.threads.create();
+        console.log(thread);
+        return thread;
+    }
+
+    async function createMessage(thread, input){
+        const message = await openai.beta.messages.create(thread.id,{role:"user",content:input})
+        return message;
     }
 
     const moveChatToTop = () =>{
@@ -54,7 +103,7 @@ function Home(props){
     return (
         <div>
             <div className="chat" ref={chatRef}>
-                <h1 id="welcome" ref={welcomeRef} >Hello, {props.name}!</h1>
+                <h1 id="welcome" ref={welcomeRef} >Good evening, {props.name}!</h1>
                 <img className="messageQuestion" src={messageQuestion} onClick={clickQuestion}/>
                 <div className="inputContainer">
                     <img id="glass" src={glass}/>
@@ -69,7 +118,7 @@ function Home(props){
                     </div> }
             <div className="output">
                     {testOutput!="" &&
-                    <p>{testOutput}</p>
+                    <Markdown>{testOutput}</Markdown>
                     }
             </div>
         </div>

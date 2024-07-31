@@ -5,7 +5,7 @@ import {useState} from "react";
 
 
 function Navbar(){
-    const [name, setName] = useState("Jeremiah");
+    const [name, setName] = useState("Lakshya");
 
     return (
         <div>
