@@ -12,12 +12,12 @@ dist
 dist-ssr
 *.localg
 venv/
-credentials.json
 .env
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+credentials.json
 .idea
 .DS_Store
 *.suo
