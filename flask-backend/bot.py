@@ -56,7 +56,7 @@ def test():
         # return pretty_print(get_response(thread1))
     # return "\""+data+"\" - 🤓"
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0")
 
 
 # thread1, run1 = create_thread_and_run(
