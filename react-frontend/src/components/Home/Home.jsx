@@ -61,7 +61,7 @@ function Home(props){
 
     const getData = (e)=>{
         // Fetches response from GEMINI first
-        fetch("http://localhost:5000/test", {
+        fetch("https://healio-revived.onrender.com/test", {
                 method:"POST",
                 body:e.target.value
             })
